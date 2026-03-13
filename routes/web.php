@@ -8,11 +8,11 @@ use App\Http\Controllers\ApplicantsExcelController;
 use App\Http\Controllers\ApplicantsFilteredExcelController;
 use App\Http\Controllers\SetFinancialYearScopeController;
 use App\Http\Controllers\QuarterlyReportExportController;
+use App\Http\Controllers\SelfRegistrationController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SelfRegistrationController::class, 'index'])->name('landing');
+Route::post('/self-register', [SelfRegistrationController::class, 'store'])->name('self-register.store');
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/admin/{tenant}/quarterly-reports/export', QuarterlyReportExportController::class)

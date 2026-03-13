@@ -9,7 +9,6 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ImportApplicantsAction extends Action
@@ -78,9 +77,7 @@ class ImportApplicantsAction extends Action
                     categoryId:      (int) $data['category_id'],
                 );
 
-                DB::transaction(function () use ($import, $data): void {
-                    Excel::import($import, $data['file']);
-                });
+                Excel::import($import, $data['file']);
 
                 Notification::make()
                     ->title('Import complete')
