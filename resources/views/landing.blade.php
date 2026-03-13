@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kirinyaga Bursary Cloud — Ward Education Funding Platform</title>
+  <title>  Bursary Cloud — Ward Education Funding Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -477,7 +477,7 @@
 <nav id="main-nav">
   <a class="nav-logo" href="#">
     <div class="nav-mark"></div>
-    <span class="nav-name">Kirinyaga Bursary Cloud</span>
+    <span class="nav-name">  Bursary Cloud</span>
   </a>
 
   <ul class="nav-links">
@@ -509,7 +509,7 @@
 
   <div class="hero-pill">
     <span class="hero-pill-dot"></span>
-    Kirinyaga County &nbsp;·&nbsp; Ward Education Fund
+      County &nbsp;·&nbsp; Ward Education Fund
   </div>
 
   <h1 class="hero-title">
@@ -582,7 +582,7 @@
         <div class="mock-stat"><div class="mock-stat-val">KES 4.2M</div><div class="mock-stat-lbl">Disbursed</div></div>
         <div class="mock-stat"><div class="mock-stat-val">93%</div><div class="mock-stat-lbl">Cleared</div></div>
       </div>
-      <div class="mock-row"><span class="mock-row-name">Kirinyaga University</span><span class="mock-row-amt">KES 480,000</span><span class="mock-badge mb-green">Cleared</span></div>
+      <div class="mock-row"><span class="mock-row-name">  University</span><span class="mock-row-amt">KES 480,000</span><span class="mock-badge mb-green">Cleared</span></div>
       <div class="mock-row"><span class="mock-row-name">Thika Technical</span><span class="mock-row-amt">KES 210,000</span><span class="mock-badge mb-green">Cleared</span></div>
       <div class="mock-row"><span class="mock-row-name">Kerugoya High School</span><span class="mock-row-amt">KES 96,000</span><span class="mock-badge mb-amber">Pending</span></div>
       <div class="mock-row"><span class="mock-row-name">St. Joseph's Secondary</span><span class="mock-row-amt">KES 72,000</span><span class="mock-badge mb-green">Cleared</span></div>
@@ -610,8 +610,8 @@
 
   <div class="about-text reveal">
     <p class="section-label">About the Platform</p>
-    <h2 class="section-title">Built for Kirinyaga. Designed for impact.</h2>
-    <p class="section-sub">Kirinyaga Bursary Cloud was built to solve the real challenges ward administrators face every financial year — lost cheques, manual spreadsheets, duplicated records, and audit pressure with no paper trail.</p>
+    <h2 class="section-title">Built for  . Designed for impact.</h2>
+    <p class="section-sub">  Bursary Cloud was built to solve the real challenges ward administrators face every financial year — lost cheques, manual spreadsheets, duplicated records, and audit pressure with no paper trail.</p>
     <ul class="about-list">
       <li>Fully ward-scoped multi-tenancy — your data, your ward, no cross-contamination</li>
       <li>Designed around the actual county bursary workflow, not generic finance logic</li>
@@ -639,8 +639,8 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a class="nav-logo" href="#"><div class="nav-mark"></div></a>
-        <span class="nav-name">Kirinyaga Bursary Cloud</span>
-        <p>A modern, multi-tenant platform for managing ward-based education bursaries across Kirinyaga County.</p>
+        <span class="nav-name">Bursary Cloud</span>
+        <p>A modern, multi-tenant platform for managing ward-based education bursaries across  County.</p>
       </div>
       <div class="footer-col">
         <h4>Platform</h4>
@@ -656,7 +656,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 Kirinyaga Bursary Cloud. All rights reserved.</span>
+      <span>© 2025   Bursary Cloud. All rights reserved.</span>
       <div class="footer-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
     </div>
   </div>
