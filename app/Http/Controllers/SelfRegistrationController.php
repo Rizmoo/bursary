@@ -24,6 +24,17 @@ class SelfRegistrationController extends Controller
         return view('landing');
     }
 
+    public function create(Request $request): View|RedirectResponse
+    {
+        if ($request->user()) {
+            $tenantId = $request->user()?->ward_id;
+
+            return redirect()->to($tenantId ? "/admin/{$tenantId}" : '/admin');
+        }
+
+        return view('self-register');
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([

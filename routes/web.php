@@ -12,6 +12,7 @@ use App\Http\Controllers\SelfRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SelfRegistrationController::class, 'index'])->name('landing');
+Route::get('/self-register', [SelfRegistrationController::class, 'create'])->name('self-register.create');
 Route::post('/self-register', [SelfRegistrationController::class, 'store'])->name('self-register.store');
 
 Route::middleware('auth')->group(function (): void {
