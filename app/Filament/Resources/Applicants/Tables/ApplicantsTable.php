@@ -17,6 +17,7 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -50,6 +51,12 @@ class ApplicantsTable
                     ->label('Institution')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
+                TextInputColumn::make('need_assessment')
+                    ->label('Need')
+                    ->type('number')
+                    ->rules(['nullable', 'integer', 'min:0', 'max:100'])
+                    ->placeholder('0')
+                    ->sortable(),
                 IconColumn::make('is_beneficiary')
                     ->label('Beneficiary')
                     ->boolean()
@@ -78,6 +85,13 @@ class ApplicantsTable
                 TextColumn::make('amount_awarded')
                     ->money('KES')
                     ->sortable(),
+                TextInputColumn::make('fee_balance')
+                    ->label('Fee Balance')
+                    ->type('number')
+                    ->step(0.01)
+                    ->rules(['nullable', 'numeric', 'min:0'])
+                    ->placeholder('0.00')
+                    ->alignEnd(),
             ])
             ->filters([
                 SelectFilter::make('financial_year_id')
