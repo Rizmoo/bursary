@@ -424,6 +424,18 @@
         @error('name')<div class="field-error">{{ $message }}</div>@enderror
       </div>
 
+    {{-- County Name --}}
+      <div class="field">
+        <label for="county_name">County Name</label>
+        <div class="input-wrap">
+          <input id="county_name" name="county_name" type="text"
+                 value="{{ old('county_name') }}"
+                 placeholder="e.g. Kirinyaga County"
+                 required>
+        </div>
+        @error('county_name')<div class="field-error">{{ $message }}</div>@enderror
+      </div>
+
       {{-- Ward Name --}}
       <div class="field">
         <label for="ward_name">Ward Name</label>

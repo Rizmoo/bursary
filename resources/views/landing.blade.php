@@ -509,7 +509,7 @@
 
   <div class="hero-pill">
     <span class="hero-pill-dot"></span>
-      County &nbsp;·&nbsp; Ward Education Fund
+      County Admin &nbsp;·&nbsp; Bursary Platform
   </div>
 
   <h1 class="hero-title">
@@ -517,11 +517,11 @@
   </h1>
 
   <p class="hero-sub">
-    A modern, ward-scoped platform that digitises every step of the bursary lifecycle — from application intake to cheque clearance, reconciliation, and annual reporting.
+    A modern county-admin platform that digitises every step of the bursary lifecycle — from county onboarding to ward assignment, reconciliation, and reporting.
   </p>
 
   <div class="hero-actions">
-    <a href="#cta" class="btn btn-primary btn-lg">Register Your Ward</a>
+    <a href="#cta" class="btn btn-primary btn-lg">Register Your County</a>
     <a href="#features" class="btn btn-outline btn-lg">Explore Features</a>
   </div>
 
@@ -567,7 +567,7 @@
       <h2 class="section-title reveal">From application to clearance in four steps</h2>
       <p class="section-sub reveal">No paper. No spreadsheets over WhatsApp. A single source of truth for every bursary transaction.</p>
       <div class="steps">
-        <div class="step reveal"><div class="step-num">1</div><div class="step-text"><strong>Register your ward</strong><p>Create a secure ward account. Each ward gets its own isolated tenant with full administrator control.</p></div></div>
+        <div class="step reveal"><div class="step-num">1</div><div class="step-text"><strong>Register your county admin account</strong><p>Create a secure county admin account first, then set up wards and assign users from the county panel.</p></div></div>
         <div class="step reveal"><div class="step-num">2</div><div class="step-text"><strong>Capture applications &amp; institutions</strong><p>Add student applicants and link them to schools, colleges, and universities from your institution library.</p></div></div>
         <div class="step reveal"><div class="step-num">3</div><div class="step-text"><strong>Assign and track cheques</strong><p>Issue cheques against approved amounts, then track every status change — cleared, stale, returned, or re-issued.</p></div></div>
         <div class="step reveal"><div class="step-num">4</div><div class="step-text"><strong>Reconcile and report</strong><p>Run bank reconciliation, export quarterly reports, and present audit-ready financials to county leadership.</p></div></div>
@@ -613,7 +613,7 @@
     <h2 class="section-title">Built for  . Designed for impact.</h2>
     <p class="section-sub">  Bursary Cloud was built to solve the real challenges ward administrators face every financial year — lost cheques, manual spreadsheets, duplicated records, and audit pressure with no paper trail.</p>
     <ul class="about-list">
-      <li>Fully ward-scoped multi-tenancy — your data, your ward, no cross-contamination</li>
+      <li>County-first multi-tenancy — your data is scoped to your county and its wards</li>
       <li>Designed around the actual county bursary workflow, not generic finance logic</li>
       <li>Exports that match county treasury formats and quarterly reporting requirements</li>
       <li>Built to be accessible for non-technical ward office staff from day one</li>
@@ -625,10 +625,10 @@
 <!-- ════════════ CTA ════════════ -->
 <section id="cta">
   <h2 class="reveal">Ready to modernise your ward's bursary?</h2>
-  <p class="reveal">Register in minutes. No contracts, no complicated setup — your ward workspace is ready the moment you sign up.</p>
+  <p class="reveal">Register in minutes. No contracts, no complicated setup — your county admin workspace is ready the moment you sign up.</p>
   <div class="cta-actions reveal">
-    <a href="/self-register" class="btn btn-primary btn-lg">Create Ward Account</a>
-    <a href="/admin/login" class="btn btn-outline btn-lg">Existing Ward? Login</a>
+    <a href="/county-register" class="btn btn-primary btn-lg">Create County Account</a>
+    <a href="/app/login" class="btn btn-outline btn-lg">Existing County Admin? Login</a>
   </div>
 </section>
 
@@ -648,7 +648,7 @@
       </div>
       <div class="footer-col">
         <h4>Account</h4>
-        <ul><li><a href="/self-register">Self Registration</a></li><li><a href="/admin/login">Admin Login</a></li><li><a href="#">Forgot Password</a></li></ul>
+        <ul><li><a href="/county-register">County Registration</a></li><li><a href="/self-register">Ward Registration</a></li><li><a href="/admin/login">Admin Login</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Support</h4>

@@ -26,7 +26,9 @@ class User extends Authenticatable implements HasTenants
      */
     protected $fillable = [
         'ward_id',
+        'county_id',
         'is_admin',
+        'is_county_admin',
         'name',
         'email',
         'password',
@@ -47,13 +49,32 @@ class User extends Authenticatable implements HasTenants
         static::saving(function (User $user): void {
             if ($user->is_admin) {
                 $user->ward_id = null;
+                $user->county_id = null;
 
                 return;
             }
 
-            if (blank($user->ward_id) && ! app()->runningInConsole()) {
+            if ($user->is_county_admin) {
+                $user->ward_id = null;
+
+                if (blank($user->county_id)) {
+                    throw ValidationException::withMessages([
+                        'county_id' => 'A county is required for county admin users.',
+                    ]);
+                }
+
+                return;
+            }
+
+            if (blank($user->ward_id)) {
                 throw ValidationException::withMessages([
                     'ward_id' => 'A ward is required for non-admin users.',
+                ]);
+            }
+
+            if (blank($user->county_id)) {
+                throw ValidationException::withMessages([
+                    'county_id' => 'A county is required for ward users.',
                 ]);
             }
         });
@@ -69,13 +90,32 @@ class User extends Authenticatable implements HasTenants
         return [
             'email_verified_at' => 'datetime',
             'is_admin' => 'boolean',
+            'is_county_admin' => 'boolean',
             'password' => 'hashed',
         ];
+    }
+
+    public function county(): BelongsTo
+    {
+        return $this->belongsTo(County::class);
     }
 
     public function ward(): BelongsTo
     {
         return $this->belongsTo(Ward::class);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+            return $this->is_admin || ! $this->is_county_admin;
+        }
+
+        if ($panel->getId() === 'app') {
+            return $this->is_admin || $this->is_county_admin;
+        }
+
+        return false;
     }
 
     public function canAccessTenant(Model $tenant): bool
@@ -88,6 +128,10 @@ class User extends Authenticatable implements HasTenants
             return true;
         }
 
+        if ($this->is_county_admin) {
+            return $tenant->county_id === $this->county_id;
+        }
+
         return $this->ward?->is($tenant) ?? false;
     }
 
@@ -95,6 +139,13 @@ class User extends Authenticatable implements HasTenants
     {
         if ($this->is_admin) {
             return Ward::query()
+                ->orderBy('name')
+                ->get();
+        }
+
+        if ($this->is_county_admin) {
+            return Ward::query()
+                ->where('county_id', $this->county_id)
                 ->orderBy('name')
                 ->get();
         }

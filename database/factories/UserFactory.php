@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\County;
 use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -27,7 +28,9 @@ class UserFactory extends Factory
     {
         return [
             'ward_id' => Ward::factory(),
+            'county_id' => fn (array $attributes) => Ward::query()->find($attributes['ward_id'])?->county_id ?? County::factory()->create()->getKey(),
             'is_admin' => false,
+            'is_county_admin' => false,
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -40,7 +43,19 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'ward_id' => null,
+            'county_id' => null,
             'is_admin' => true,
+            'is_county_admin' => false,
+        ]);
+    }
+
+    public function countyAdmin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'ward_id' => null,
+            'county_id' => County::factory(),
+            'is_admin' => false,
+            'is_county_admin' => true,
         ]);
     }
 

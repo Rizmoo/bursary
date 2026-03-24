@@ -15,6 +15,10 @@ class WardsTable
     {
         return $table
             ->columns([
+                TextColumn::make('county.name')
+                    ->label('County')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\County;
+use App\Models\Ward;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +14,10 @@ class WardsTableSeeder extends Seeder
      */
     public function run(): void
     {
+        $defaultCounty = County::query()->firstOrCreate([
+            'name' => 'Kirinyaga County',
+        ]);
+
         $wards = [
     // Mwea Constituency
     ['name' => 'Wamumu', 'constituency' => 'Mwea'],
@@ -43,9 +49,9 @@ class WardsTableSeeder extends Seeder
 ];
 
         foreach ($wards as $ward) {
-            \App\Models\Ward::query()->firstOrCreate([
+            Ward::query()->firstOrCreate([
                 'name' => $ward['name'],
-                // 'constituency' => $ward['constituency'],
+                'county_id' => $defaultCounty->getKey(),
             ]);
         }
     }

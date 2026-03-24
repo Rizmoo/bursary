@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
     
         $demoWard = Ward::query()->firstOrCreate([
             'name' => 'Wamumu',
+            'county_id' => Ward::query()->value('county_id'),
         ]);
 
         User::factory()->admin()->create([
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->for($demoWard)->create([
             'name' => 'Wamumu Officer',
             'email' => 'ward@mail.com',
+            'county_id' => $demoWard->county_id,
         ]);
     }
 }

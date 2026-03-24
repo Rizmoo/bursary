@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\County;
 use App\Models\Ward;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,6 +21,7 @@ class WardFactory extends Factory
     public function definition(): array
     {
         return [
+            'county_id' => County::factory(),
             'name' => fake()->unique()->city() . ' Ward',
         ];
     }

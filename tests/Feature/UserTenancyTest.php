@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Models\County;
 use App\Models\Ward;
 use Filament\Panel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,7 +20,21 @@ class UserTenancyTest extends TestCase
 
         User::factory()->make([
             'ward_id' => null,
+            'county_id' => County::factory()->create()->getKey(),
             'is_admin' => false,
+            'is_county_admin' => false,
+        ])->save();
+    }
+
+    public function test_county_admin_users_must_have_a_county(): void
+    {
+        $this->expectException(ValidationException::class);
+
+        User::factory()->make([
+            'ward_id' => null,
+            'county_id' => null,
+            'is_admin' => false,
+            'is_county_admin' => true,
         ])->save();
     }
 
@@ -46,5 +61,24 @@ class UserTenancyTest extends TestCase
         $this->assertFalse($user->canAccessTenant($otherWard));
         $this->assertCount(1, $user->getTenants($panel));
         $this->assertTrue($user->getTenants($panel)[0]->is($assignedWard));
+    }
+
+    public function test_county_admin_users_only_access_county_wards(): void
+    {
+        $panel = $this->createMock(Panel::class);
+        $countyA = County::factory()->create();
+        $countyB = County::factory()->create();
+        $wardA1 = Ward::factory()->create(['county_id' => $countyA->getKey()]);
+        $wardA2 = Ward::factory()->create(['county_id' => $countyA->getKey()]);
+        $wardB1 = Ward::factory()->create(['county_id' => $countyB->getKey()]);
+
+        $user = User::factory()->countyAdmin()->create([
+            'county_id' => $countyA->getKey(),
+        ]);
+
+        $this->assertTrue($user->canAccessTenant($wardA1));
+        $this->assertTrue($user->canAccessTenant($wardA2));
+        $this->assertFalse($user->canAccessTenant($wardB1));
+        $this->assertCount(2, $user->getTenants($panel));
     }
 }
