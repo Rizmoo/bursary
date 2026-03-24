@@ -20,7 +20,7 @@
     <div class="title">
         <h1>County Government of Kirinyaga</h1>
         <h2>Institution Cheque Beneficiaries</h2>
-        <p>{{ strtoupper($tenant->name) }} Ward</p>
+        <h2>{{ strtoupper($tenant->name) }} WARD</h2>
     </div>
 
     <table class="meta">

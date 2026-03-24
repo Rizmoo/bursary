@@ -13,6 +13,8 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Actions\BulkActionGroup;
+use App\Filament\Resources\InstitutionCheques\Actions\DownloadAllInstitutionChequesPdfAction;
 
 class InstitutionChequesTable
 {
@@ -79,6 +81,9 @@ class InstitutionChequesTable
                 InstitutionChequeLifecycleActions::returnToUnutilised(),
                 ViewAction::make(),
                 EditAction::make(),
+            ])
+            ->actions([
+                DownloadAllInstitutionChequesPdfAction::make(),
             ]);
     }
 }
