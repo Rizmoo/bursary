@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Create Ward Account — Kirinyaga Bursary Cloud</title>
+  <title>Create Ward Account — Bursary Cloud</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -362,6 +362,11 @@
     .card-foot a { color: var(--amber); text-decoration: none; }
     .card-foot a:hover { text-decoration: underline; }
 
+    /* Field hint */
+    .field-hint {
+      font-size: .73rem; color: var(--muted); margin-top: .22rem; line-height: 1.5;
+    }
+
     @media (max-width: 480px) {
       .field-row { grid-template-columns: 1fr; }
       .card { padding: 1.6rem 1.2rem; }
@@ -424,15 +429,15 @@
         @error('name')<div class="field-error">{{ $message }}</div>@enderror
       </div>
 
-    {{-- County Name --}}
+    {{-- County Name (optional) --}}
       <div class="field">
-        <label for="county_name">County Name</label>
+        <label for="county_name">County Name <span style="font-weight:300;color:var(--muted)">(optional)</span></label>
         <div class="input-wrap">
           <input id="county_name" name="county_name" type="text"
                  value="{{ old('county_name') }}"
-                 placeholder="e.g. Kirinyaga County"
-                 required>
+                 placeholder="e.g. Kirinyaga County — leave blank for a standalone ward">
         </div>
+        <div class="field-hint">Leave blank if your ward is not part of a county programme.</div>
         @error('county_name')<div class="field-error">{{ $message }}</div>@enderror
       </div>
 

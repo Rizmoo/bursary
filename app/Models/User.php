@@ -72,11 +72,7 @@ class User extends Authenticatable implements HasTenants
                 ]);
             }
 
-            if (blank($user->county_id)) {
-                throw ValidationException::withMessages([
-                    'county_id' => 'A county is required for ward users.',
-                ]);
-            }
+            // county_id may be null for standalone (county-less) wards.
         });
     }
 
@@ -108,7 +104,8 @@ class User extends Authenticatable implements HasTenants
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() === 'admin') {
-            return $this->is_admin || ! $this->is_county_admin;
+            // Super admins can always access. Ward users (not county admins) access via their ward.
+            return $this->is_admin || (! $this->is_county_admin && $this->ward_id !== null);
         }
 
         if ($panel->getId() === 'app') {

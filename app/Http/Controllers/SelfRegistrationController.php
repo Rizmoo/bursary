@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\County;
+use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -47,22 +47,27 @@ class SelfRegistrationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'county_name' => ['required', 'string', 'max:255'],
-            'ward_name' => ['required', 'string', 'max:255'],
+            'name'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password'  => ['required', 'string', 'min:8', 'confirmed'],
+            'county_name' => ['nullable', 'string', 'max:255'],
+            'ward_name'   => ['required', 'string', 'max:255'],
         ]);
 
-        $countyName = trim($validated['county_name']);
-        $county = County::query()
-            ->whereRaw('lower(name) = ?', [mb_strtolower($countyName)])
-            ->first();
+        // Resolve county (optional).
+        $county = null;
 
-        if (! $county) {
-            throw ValidationException::withMessages([
-                'county_name' => 'County not found. Register county first or contact system admin.',
-            ]);
+        if (filled($validated['county_name'] ?? null)) {
+            $countyName = trim($validated['county_name']);
+            $county = County::query()
+                ->whereRaw('lower(name) = ?', [mb_strtolower($countyName)])
+                ->first();
+
+            if (! $county) {
+                throw ValidationException::withMessages([
+                    'county_name' => 'County not found. Register the county first or leave the field blank to create a standalone ward.',
+                ]);
+            }
         }
 
         $wardName = trim($validated['ward_name']);
@@ -78,20 +83,18 @@ class SelfRegistrationController extends Controller
         }
 
         [$ward, $user] = DB::transaction(function () use ($validated, $county): array {
-            $wardName = trim($validated['ward_name']);
-
             $ward = Ward::create([
-                'county_id' => $county->getKey(),
-                'name' => $wardName,
+                'county_id' => $county?->getKey(),
+                'name'      => trim($validated['ward_name']),
             ]);
 
             $user = User::create([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => $validated['password'],
-                'ward_id' => $ward->getKey(),
-                'county_id' => $county->getKey(),
-                'is_admin' => false,
+                'name'            => $validated['name'],
+                'email'           => $validated['email'],
+                'password'        => $validated['password'],
+                'ward_id'         => $ward->getKey(),
+                'county_id'       => $county?->getKey(),
+                'is_admin'        => false,
                 'is_county_admin' => false,
             ]);
 

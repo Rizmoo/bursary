@@ -19,11 +19,30 @@ class UserTenancyTest extends TestCase
         $this->expectException(ValidationException::class);
 
         User::factory()->make([
-            'ward_id' => null,
-            'county_id' => County::factory()->create()->getKey(),
-            'is_admin' => false,
+            'ward_id'         => null,
+            'county_id'       => County::factory()->create()->getKey(),
+            'is_admin'        => false,
             'is_county_admin' => false,
         ])->save();
+    }
+
+    public function test_standalone_ward_users_can_have_null_county_id(): void
+    {
+        $ward = Ward::factory()->create(['county_id' => null]);
+
+        $user = User::factory()->make([
+            'ward_id'         => $ward->getKey(),
+            'county_id'       => null,
+            'is_admin'        => false,
+            'is_county_admin' => false,
+        ]);
+
+        $user->save();
+
+        $this->assertDatabaseHas('users', [
+            'ward_id'   => $ward->getKey(),
+            'county_id' => null,
+        ]);
     }
 
     public function test_county_admin_users_must_have_a_county(): void

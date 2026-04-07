@@ -517,12 +517,12 @@
   </h1>
 
   <p class="hero-sub">
-    A modern county-admin platform that digitises every step of the bursary lifecycle — from county onboarding to ward assignment, reconciliation, and reporting.
+    A modern bursary platform that digitises every step of the funding lifecycle — whether you're a county managing multiple wards, or a standalone ward running your own bursary programme.
   </p>
 
   <div class="hero-actions">
-    <a href="#cta" class="btn btn-primary btn-lg">Register Your County</a>
-    <a href="#features" class="btn btn-outline btn-lg">Explore Features</a>
+    <a href="/county-register" class="btn btn-primary btn-lg">Register Your County</a>
+    <a href="/self-register" class="btn btn-outline btn-lg">Register a Single Ward</a>
   </div>
 
   <div class="hero-scroll">
@@ -624,11 +624,12 @@
 
 <!-- ════════════ CTA ════════════ -->
 <section id="cta">
-  <h2 class="reveal">Ready to modernise your ward's bursary?</h2>
-  <p class="reveal">Register in minutes. No contracts, no complicated setup — your county admin workspace is ready the moment you sign up.</p>
+  <h2 class="reveal">Ready to modernise your bursary?</h2>
+  <p class="reveal">Two ways to get started — register as a county and manage all your wards from one dashboard, or set up a single ward independently in minutes.</p>
   <div class="cta-actions reveal">
-    <a href="/county-register" class="btn btn-primary btn-lg">Create County Account</a>
-    <a href="/app/login" class="btn btn-outline btn-lg">Existing County Admin? Login</a>
+    <a href="/county-register" class="btn btn-primary btn-lg">Register County</a>
+    <a href="/self-register" class="btn btn-outline btn-lg">Register Standalone Ward</a>
+    <a href="/app/login" class="btn btn-outline btn-lg">County Admin Login</a>
   </div>
 </section>
 
