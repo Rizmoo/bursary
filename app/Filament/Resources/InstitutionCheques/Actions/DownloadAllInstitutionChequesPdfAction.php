@@ -15,30 +15,43 @@ class DownloadAllInstitutionChequesPdfAction
             ->label('Download All PDF')
             ->icon('heroicon-o-arrow-down-tray')
             ->color('gray')
+            ->requiresConfirmation()
+            ->modalHeading('Generate Bulk PDF')
+            ->modalDescription('This may take a few minutes. Once ready, your PDF will be available in the "Bulk PDF Exports" list for download.')
+            ->modalSubmitActionLabel('Generate PDF')
             ->action(function () {
-                // Increase memory and time limit for large PDF generation
-                ini_set('memory_limit', '512M');
-                set_time_limit(300);
-
-                // Get all cheques for the current tenant/financial year
-                $query = \App\Filament\Resources\InstitutionCheques\InstitutionChequeResource::getEloquentQuery();
-                $records = $query->with([
-                    'institution',
-                    'financialYear',
-                    'applicants' => fn ($query) => $query->orderBy('last_name')->orderBy('first_name'),
-                ])->get();
-
                 $tenant = filament()->getTenant();
 
-                $pdf = Pdf::loadView('pdfs.institution-cheques-bulk', [
-                    'cheques' => $records,
-                    'tenant' => $tenant,
-                ])->setPaper('a4', 'portrait');
+                // Prevent duplicate in-flight exports
+                // $alreadyRunning = \App\Models\PdfExport::query()
+                //     ->where('user_id', auth()->id())
+                //     ->where('institution_id', $tenant->id)
+                //     ->whereIn('status', ['pending', 'processing'])
+                //     ->exists();
 
-                return response()->streamDownload(
-                    fn () => print($pdf->output()),
-                    'institution-cheques-bulk-' . now()->format('YmdHis') . '.pdf'
-                );
+                // if ($alreadyRunning) {
+                //     \Filament\Notifications\Notification::make()
+                //         ->title('Export already in progress')
+                //         ->body('Your PDF is still being generated. Check the "Bulk PDF Exports" list for status.')
+                //         ->warning()
+                //         ->send();
+                //     return;
+                // }
+
+                $export = \App\Models\PdfExport::create([
+                    'user_id' => auth()->id(),
+                    'institution_id' => $tenant->id,
+                    'status' => 'pending',
+                    'ward_id'=> is_object($tenant) ? $tenant->ward_id : null,
+                ]);
+
+                \App\Jobs\GenerateBulkChequesPdfJob::dispatch($export->id);
+
+                \Filament\Notifications\Notification::make()
+                    ->title('PDF generation started')
+                    ->body('You can monitor progress and download your PDF from the "Bulk PDF Exports" list.')
+                    ->success()
+                    ->send();
             });
     }
 }

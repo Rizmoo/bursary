@@ -43,3 +43,17 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/admin/{tenant}/financial-year-scope', SetFinancialYearScopeController::class)
         ->name('financial-year-scope.set');
 });
+
+Route::get('/pdf/download', function (Illuminate\Http\Request $request) {
+    if (!$request->hasValidSignature()) {
+        abort(401);
+    }
+
+    $path = $request->query('path');
+
+    if (!Illuminate\Support\Facades\Storage::exists($path)) {
+        abort(404);
+    }
+
+    return Illuminate\Support\Facades\Storage::download($path);
+})->name('pdf.download')->middleware('signed');

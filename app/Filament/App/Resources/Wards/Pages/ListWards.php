@@ -13,7 +13,7 @@ class ListWards extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()->modal(),
+            CreateAction::make(),
         ];
     }
 }
